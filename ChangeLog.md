@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This file tracks changes made to the project files since the baseline upload.
 
+
+## [1.1.0] - (uploaded 2025-09-22)
+### Added
+- fencer_details.php
+  - Added support for darkmode in chart.
+- style.css
+  - Added handling for .meta class in dark mode
+
+### Removed
+- tournament_overview.php
+  - Removed debug commands
+
+
 ## [1.0.0] - (uploaded 2025-09-22)
 - Initial snapshot of the project including:
   - index.php

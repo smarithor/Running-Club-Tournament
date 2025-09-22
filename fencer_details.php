@@ -519,6 +519,14 @@ function h(?string $s): string {
         }, array_keys($rankHistory), $rankHistory)), JSON_UNESCAPED_SLASHES);
         ?>;
 
+        // Pull CSS variable for text color
+        //const textColor = getComputedStyle(document.body).getPropertyValue('--text-color').trim() || '#000';
+        const theme = document.documentElement.getAttribute('data-theme')
+        if (theme === 'light')
+            textColor = '#222';
+        else
+            textColor = '#eee';
+
         new Chart(ctx, {
           type: 'line',
           data: { datasets },
@@ -526,7 +534,12 @@ function h(?string $s): string {
             responsive: true,
             interaction: { mode: 'nearest', axis: 'x', intersect: false },
             plugins: {
+              legend: {
+                labels: { color: textColor }
+              },
               tooltip: {
+                titleColor: textColor,
+                bodyColor: textColor,
                 callbacks: {
                   label: (ctx) => {
                     const p = ctx.raw;
@@ -538,8 +551,8 @@ function h(?string $s): string {
               }
             },
             scales: {
-              x: { type: 'time', time: { unit: 'day' }, title: { display: true, text: 'Date' } },
-              y: { reverse: true, title: { display: true, text: 'Rank' }, ticks: { precision: 0 } }
+              x: { type: 'time', time: { unit: 'day' }, title: { display: true, text: 'Date', color: textColor }, ticks: { color: textColor } },
+              y: { reverse: true, title: { display: true, text: 'Rank', color: textColor }, ticks: { precision: 0, color: textColor } }
             }
           }
         });

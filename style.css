@@ -383,3 +383,7 @@ button:hover { opacity: 0.9; }
 :root[data-theme="dark"] .dropdown-content a:hover {
     background-color: #444;
 }
+
+:root[data-theme="dark"] .meta { 
+    color: #888; 
+}

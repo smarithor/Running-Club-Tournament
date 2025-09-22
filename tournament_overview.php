@@ -408,9 +408,6 @@ function h(?string $s): string {
         else
             textColor = '#eee';
 
-        console.log(theme)
-        console.log(textColor)
-
         new Chart(ctx, {
           type: 'line',
           data: { datasets },
