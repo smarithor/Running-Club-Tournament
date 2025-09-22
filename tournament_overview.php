@@ -217,8 +217,7 @@ try {
         SELECT f.ID,
                f.Name,
                SUM(CASE WHEN m.Judge     = f.ID THEN 1 ELSE 0 END) AS JudgeCount,
-               SUM(CASE WHEN m.Referee1  = f.ID THEN 1 ELSE 0 END) AS Ref1Count,
-               SUM(CASE WHEN m.Referee2  = f.ID THEN 1 ELSE 0 END) AS Ref2Count,
+               SUM(CASE WHEN m.Referee1  = f.ID THEN 1 ELSE 0 END) + SUM(CASE WHEN m.Referee2  = f.ID THEN 1 ELSE 0 END) AS RefCount,
                SUM(CASE WHEN m.MatchTable= f.ID THEN 1 ELSE 0 END) AS TableCount,
                SUM(
                    (CASE WHEN m.Judge     = f.ID THEN 1 ELSE 0 END) +
@@ -312,9 +311,8 @@ function h(?string $s): string {
                     <thead>
                         <tr>
                             <th>Fencer</th>
-                            <th>Judging</th>
-                            <th>Referee 1</th>
-                            <th>Referee 2</th>
+                            <th>Big stick</th>
+                            <th>Little stick</th>
                             <th>Table</th>
                             <th>Total</th>
                         </tr>
@@ -324,8 +322,7 @@ function h(?string $s): string {
                         <tr>
                             <td><?= h($s['Name']) ?></td>
                             <td class="mono"><?= h((string)$s['JudgeCount']) ?></td>
-                            <td class="mono"><?= h((string)$s['Ref1Count']) ?></td>
-                            <td class="mono"><?= h((string)$s['Ref2Count']) ?></td>
+                            <td class="mono"><?= h((string)$s['RefCount']) ?></td>
                             <td class="mono"><?= h((string)$s['TableCount']) ?></td>
                             <td class="mono"><strong><?= h((string)$s['TotalCount']) ?></strong></td>
                         </tr>
@@ -353,9 +350,9 @@ function h(?string $s): string {
             <th>Challenged</th>
             <th>Warnings (C / D)</th>
             <th>Doubles</th>
-            <th>Judge</th>
-            <th>Referee 1</th>
-            <th>Referee 2</th>
+            <th>Big stick</th>
+            <th>Little stick 1</th>
+            <th>Little stick 2</th>
             <th>Table</th>
         </tr>
         </thead>
@@ -408,7 +405,7 @@ function h(?string $s): string {
         else
             textColor = '#eee';
 
-        new Chart(ctx, {
+        const chart = new Chart(ctx, {
           type: 'line',
           data: { datasets },
           options: {
@@ -437,6 +434,35 @@ function h(?string $s): string {
             }
           }
         });
+
+        const controls = document.createElement('div');
+        controls.style.margin = '10px 0';
+        controls.style.display = 'flex';
+        controls.style.gap = '10px';
+
+        const showBtn = document.createElement('button');
+        showBtn.textContent = 'Show All';
+        showBtn .style.margin = '10px 0';
+        showBtn.onclick = () => {
+            chart.data.datasets.forEach((ds, i) => {
+                chart.setDatasetVisibility(i, true);
+            });
+            chart.update();
+        };
+
+        const clearBtn  = document.createElement('button');
+        clearBtn .textContent = 'Clear All';
+        clearBtn .style.margin = '10px 0';
+        clearBtn .onclick = () => {
+            chart.data.datasets.forEach((ds, i) => {
+                chart.setDatasetVisibility(i, false);
+            });
+            chart.update();
+        };
+        controls.appendChild(showBtn);
+        controls.appendChild(clearBtn);
+
+        document.getElementById('rankChart').parentNode.insertBefore(controls, document.getElementById('rankChart'));
     </script>
 
 </body>

@@ -7,11 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This file tracks changes made to the project files since the baseline upload.
 
+## [1.2.0] - (uploaded 2025-09-22)
+## Added
+- tournament_overview.php
+  - Show All and Clear All buttons to the chart
+
+## Fixed
+- register_match.php
+  - Fixed Judge/Ref naming
+- season_overview.php
+  - Fixed Judge/Ref naming
+- tournament_overview.php
+  - Fixed Judge/Ref naming
+- fencer_details.php
+  - Fixed Judge/Ref naming
 
 ## [1.1.0] - (uploaded 2025-09-22)
 ### Added
 - fencer_details.php
-  - Added support for darkmode in chart.
+  - Added support for dark mode in chart.
 - style.css
   - Added handling for .meta class in dark mode
 

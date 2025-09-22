@@ -253,21 +253,21 @@ function options(array $rows, $selectedId): string {
             <legend>Officials</legend>
             <div class="row">
                 <div class="col-4">
-                    <label for="parJudge">Judge</label>
+                    <label for="parJudge">Big stick</label>
                     <select name="parJudge" id="parJudge" required>
                         <option value="" disabled <?= $values['parJudge']===''?'selected':'';?>>(select)</option>
                         <?= options($allFencers, $values['parJudge']) ?>
                     </select>
                 </div>
                 <div class="col-4">
-                    <label for="parReferee1">Referee 1</label>
+                    <label for="parReferee1">Little stick 1</label>
                     <select name="parReferee1" id="parReferee1" required>
                         <option value="" disabled <?= $values['parReferee1']===''?'selected':'';?>>(select)</option>
                         <?= options($allFencers, $values['parReferee1']) ?>
                     </select>
                 </div>
                 <div class="col-4">
-                    <label for="parReferee2">Referee 2</label>
+                    <label for="parReferee2">Little stick 2</label>
                     <select name="parReferee2" id="parReferee2" required>
                         <option value="" disabled <?= $values['parReferee2']===''?'selected':'';?>>(select)</option>
                         <?= options($allFencers, $values['parReferee2']) ?>

@@ -1,0 +1,24 @@
+# Visual Studio Code
+.vscode/
+.vs/
+# Exclude specific files within .vscode if needed, e.g.,
+#!.vscode/settings.json
+
+# Build artifacts
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.suo
+*.user
+*.bak
+*.log
+
+# Package manager files (e.g., Node.js)
+node_modules/
+dist/
+
+# Operating System files
+.DS_Store
+Thumbs.db

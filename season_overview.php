@@ -59,8 +59,7 @@ try {
         SELECT f.ID,
                f.Name,
                SUM(CASE WHEN m.Judge     = f.ID THEN 1 ELSE 0 END) AS JudgeCount,
-               SUM(CASE WHEN m.Referee1  = f.ID THEN 1 ELSE 0 END) AS Ref1Count,
-               SUM(CASE WHEN m.Referee2  = f.ID THEN 1 ELSE 0 END) AS Ref2Count,
+               SUM(CASE WHEN m.Referee1  = f.ID THEN 1 ELSE 0 END) + SUM(CASE WHEN m.Referee2  = f.ID THEN 1 ELSE 0 END) AS RefCount,
                SUM(CASE WHEN m.MatchTable= f.ID THEN 1 ELSE 0 END) AS TableCount,
                SUM(
                    (CASE WHEN m.Judge     = f.ID THEN 1 ELSE 0 END) +
@@ -163,9 +162,8 @@ function h(?string $s): string {
                 <thead>
                     <tr>
                         <th>Fencer</th>
-                        <th>Judging</th>
-                        <th>Referee 1</th>
-                        <th>Referee 2</th>
+                        <th>Big stick</th>
+                        <th>Little stick</th>
                         <th>Table</th>
                         <th>Total</th>
                     </tr>
@@ -175,8 +173,7 @@ function h(?string $s): string {
                     <tr>
                         <td><?= h($s['Name']) ?></td>
                         <td class="mono"><?= h((string)$s['JudgeCount']) ?></td>
-                        <td class="mono"><?= h((string)$s['Ref1Count']) ?></td>
-                        <td class="mono"><?= h((string)$s['Ref2Count']) ?></td>
+                        <td class="mono"><?= h((string)$s['RefCount']) ?></td>
                         <td class="mono"><?= h((string)$s['TableCount']) ?></td>
                         <td class="mono"><strong><?= h((string)$s['TotalCount']) ?></strong></td>
                     </tr>

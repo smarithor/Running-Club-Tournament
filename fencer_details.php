@@ -480,9 +480,9 @@ function h(?string $s): string {
                         <td>
                             <?php
                                 $officials = array_filter([
-                                    $m['JudgeName']   ? ('Judge: '   . $m['JudgeName'])  : null,
-                                    $m['Ref1Name']    ? ('Ref1: '    . $m['Ref1Name'])   : null,
-                                    $m['Ref2Name']    ? ('Ref2: '    . $m['Ref2Name'])   : null,
+                                    $m['JudgeName']   ? ('Ref: '     . $m['JudgeName'])  : null,
+                                    $m['Ref1Name']    ? ('Judge1: '  . $m['Ref1Name'])   : null,
+                                    $m['Ref2Name']    ? ('Judge2: '  . $m['Ref2Name'])   : null,
                                     $m['TableName']   ? ('Table: '   . $m['TableName'])  : null,
                                 ]);
                                 echo $officials ? h(implode('; ', $officials)) : '—';
