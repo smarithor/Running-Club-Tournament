@@ -1,0 +1,385 @@
+/* style.css */
+
+/* -------- Base -------- */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #fff;
+    color: #000;
+}
+
+:root {
+  --chart-text: #333;   /* light mode */
+}
+
+body.dark {
+  --chart-text: #eee;   /* dark mode */
+}
+
+h1 { margin: 0 0 12px; font-size: 1.6rem; }
+h2 { margin: 24px 0 8px; font-size: 1.3rem; }
+.meta { color: #555; margin-bottom: 18px; }
+
+/* -------- Navigation -------- */
+nav {
+    background-color: #333;
+    overflow: hidden;
+}
+
+nav a {
+    float: left;
+    display: block;
+    color: #fff;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    background-color: #575757;
+}
+
+nav a.selected {
+    background-color: #999999;
+}
+
+/* Dark mode toggle button */
+.dark-toggle {
+    float: right;
+    margin-right: 10px;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.dark-toggle:hover {
+    opacity: 0.8;
+}
+
+/* -------- Layout -------- */
+.container { padding: 20px; }
+
+.grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .grid { grid-template-columns: 1fr; }
+}
+
+.card {
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 16px;
+    background: #fff;
+}
+
+.chart-canvas {
+    max-width: 100%;
+    max-height: 400px;
+}
+
+.season-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+.tournament-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .season-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tournament-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* -------- Tables -------- */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 12px;
+}
+
+th, td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #e5e5e5;
+    text-align: left;
+    vertical-align: top;
+}
+
+th {
+    background: #fafafa;
+    position: sticky;
+    top: 0;
+}
+
+.mono {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+/* -------- Forms -------- */
+form {
+    display: grid;
+    gap: 12px;
+    max-width: 860px;
+}
+
+fieldset {
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 16px;
+}
+
+legend {
+    padding: 0 6px;
+    color: #444;
+    font-weight: bold;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font: inherit;
+    box-sizing: border-box;
+    background: #fff;
+    color: #000;
+}
+
+button {
+    padding: 10px 16px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background: #f7f7f7;
+    cursor: pointer;
+    font: inherit;
+}
+
+button.primary {
+    background: #0a66c2;
+    color: #fff;
+    border-color: #0a66c2;
+}
+
+button:hover { opacity: 0.9; }
+
+.actions { display: flex; gap: 10px; }
+
+/* -------- Messages -------- */
+.msg {
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+
+.msg.ok {
+    background: #f0fff4;
+    border: 1px solid #55b36a;
+    color: #1f6d39;
+}
+
+.msg.err {
+    background: #fff5f5;
+    border: 1px solid #f19696;
+    color: #8a1f1f;
+}
+
+
+/* -------- Dropdown -------- */
+/* Dropdown container */
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+/* Dropdown button */
+.dropbtn {
+    font: inherit;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 20px;
+    background-color: inherit;
+    cursor: pointer;
+}
+
+/* Dropdown content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 160px;
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    color: #fff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: #575757;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* -------- Utilities -------- */
+.badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid #ddd;
+    font-size: .85em;
+}
+
+.empty {
+    padding: 16px;
+    color: #666;
+    background: #fcfcfc;
+    border: 1px solid #eee;
+    border-radius: 6px;
+}
+
+.hidden {
+    width: 0px;
+    display: none;
+}
+
+/* -------- Dark Mode -------- */
+:root[data-theme="dark"] body {
+    background: #121212;
+    color: #e0e0e0;
+}
+
+:root[data-theme="dark"] nav { background-color: #222; }
+:root[data-theme="dark"] nav a { color: #e0e0e0; }
+:root[data-theme="dark"] nav a:hover { background-color: #444; }
+:root[data-theme="dark"] nav a.selected { background-color: #666; }
+
+:root[data-theme="dark"] .card {
+    background: #1e1e1e;
+    border: 1px solid #333;
+}
+
+:root[data-theme="dark"] legend {
+    color: #e0e0e0;
+}
+
+:root[data-theme="dark"] th {
+    background: #2a2a2a;
+    color: #e0e0e0;
+}
+:root[data-theme="dark"] td { border-bottom: 1px solid #333; }
+
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] select {
+    background: #222;
+    border: 1px solid #555;
+    color: #e0e0e0;
+}
+
+:root[data-theme="dark"] button {
+    background: #333;
+    border-color: #555;
+    color: #e0e0e0;
+}
+
+:root[data-theme="dark"] button.primary {
+    background: #1976d2;
+    border-color: #1976d2;
+    color: #fff;
+}
+
+:root[data-theme="dark"] .msg.ok {
+    background: #1b4027;
+    border-color: #2e7d32;
+    color: #a5d6a7;
+}
+
+:root[data-theme="dark"] .msg.err {
+    background: #402020;
+    border-color: #b71c1c;
+    color: #ef9a9a;
+}
+
+:root[data-theme="dark"] .badge {
+    border-color: #555;
+    color: #e0e0e0;
+}
+
+:root[data-theme="dark"] .empty {
+    background: #1e1e1e;
+    border-color: #333;
+    color: #aaa;
+}
+
+:root[data-theme="dark"] a {
+    color: #82b1ff;  /* lighter blue for readability */
+}
+
+:root[data-theme="dark"] a:hover {
+    color: #a5d6ff;
+    text-decoration: underline;
+}
+
+:root[data-theme="dark"] a:visited {
+    color: #b388ff;
+}
+
+/* Keep navbar links controlled by navbar styles */
+:root[data-theme="dark"] .navbar a {
+    color: #e0e0e0;
+}
+
+:root[data-theme="dark"] .navbar a:hover {
+    background-color: #444; /* current hover style */
+    color: #e0e0e0;         /* stay readable */
+}
+
+:root[data-theme="dark"] .navbar a.selected {
+    background-color: #666;
+    color: #fff; /* highlight */
+}
+
+:root[data-theme="dark"] .dropdown-content {
+    background-color: #222;
+}
+
+:root[data-theme="dark"] .dropdown-content a:hover {
+    background-color: #444;
+}
