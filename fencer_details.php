@@ -514,6 +514,7 @@ function h(?string $s): string {
                 'data' => $info['data'],
                 'fill' => false,
                 'borderColor' => $info['color'],
+                'backgroundColor' => $info['color'],
                 'tension' => 0
             ];
         }, array_keys($rankHistory), $rankHistory)), JSON_UNESCAPED_SLASHES);
@@ -535,11 +536,13 @@ function h(?string $s): string {
             interaction: { mode: 'nearest', axis: 'x', intersect: false },
             plugins: {
               legend: {
-                labels: { color: textColor }
+                labels: { 
+                    color: textColor, 
+                    usePointStyle: true,
+                    pointStyle: 'rect' 
+                 }
               },
               tooltip: {
-                titleColor: textColor,
-                bodyColor: textColor,
                 callbacks: {
                   label: (ctx) => {
                     const p = ctx.raw;

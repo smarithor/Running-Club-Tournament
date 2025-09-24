@@ -4,6 +4,11 @@
 # Exclude specific files within .vscode if needed, e.g.,
 #!.vscode/settings.json
 
+Emacs
+*~
+\#*#
+# Excluding specfic auto save file form emacs
+
 # Build artifacts
 bin/
 obj/

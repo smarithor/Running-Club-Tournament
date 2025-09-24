@@ -392,6 +392,7 @@ function h(?string $s): string {
                 'data' => $f['data'],
                 'fill' => false,
                 'borderColor' => $f['color'] ?: sprintf('hsl(%d, 70%%, 50%%)', rand(0,360)),
+                'backgroundColor' => $f['color'] ?: sprintf('hsl(%d, 70%%, 50%%)', rand(0,360)),
                 'tension' => 0
             ];
         }, $rankHistory)), JSON_UNESCAPED_SLASHES);
@@ -413,11 +414,13 @@ function h(?string $s): string {
             interaction: { mode: 'nearest', axis: 'x', intersect: false },
             plugins: {
               legend: {
-                labels: { color: textColor }
+                labels: { 
+                    color: textColor, 
+                    usePointStyle: true,
+                    pointStyle: 'rect' 
+                }
               },
               tooltip: {
-                titleColor: textColor,
-                bodyColor: textColor,
                 callbacks: {
                   label: (ctx) => {
                     const p = ctx.raw;
