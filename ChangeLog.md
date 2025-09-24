@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This file tracks changes made to the project files since the baseline upload.
 
+## [1.2.2] - (uploaded 2025-09-24)
+## Fixed
+- tournament_overview.php
+  - Fixed scaling in mobile
+- fencer_details.php
+  - Fixed scaling in mobile
+
+
+## [1.2.1] - (uploaded 2025-09-24)
+## Fixed
+- tournament_overview.php
+  - Fixed sizing and fill in chart.
+  - Fixed tooltip color in light mode.
+- fencer_details.php
+  - Fixed sizing and fill in chart.
+  - Fixed tooltip color in light mode.
+
+
 ## [1.2.0] - (uploaded 2025-09-22)
 ## Added
 - tournament_overview.php

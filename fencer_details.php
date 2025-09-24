@@ -446,54 +446,57 @@ function h(?string $s): string {
         <?php if (!$matches): ?>
             <div class="empty">No matches found for this fencer in the selected scope.</div>
         <?php else: ?>
+            
         <h2>Match History</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th class="mono">Date</th>
-                    <th>Tournament</th>
-                    <th>Role</th>
-                    <th>Opponent</th>
-                    <th class="mono">Score</th>
-                    <th>Result</th>
-                    <th class="mono">Warnings</th>
-                    <th>Doubles</th>
-                    <th>Officials</th>
-                    <th class="mono">Match&nbsp;ID</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($matches as $m): ?>
+        <div class="table-wrapper">
+            <table>
+                <thead>
                     <tr>
-                        <td class="mono"><?= h($m['FightDate'] ?? '') ?></td>
-                        <td><?= h($m['TournamentName'] ?? '') ?></td>
-                        <td><?= h($m['MyRole']) ?></td>
-                        <td>
-                            <a href="fencer_details.php?fencer_id=<?= h((string)$m['OpponentID']) ?>&tournament_id=<?= $tournamentId !== null ? h((string)$tournamentId) : '' ?>&season_id=<?= h((string)$seasonId) ?>">
-                                <?= h($m['OpponentName']) ?>
-                            </a>
-                        </td>
-                        <td class="mono"><?= h((string)$m['MyScore']) ?>–<?= h((string)$m['OppScore']) ?></td>
-                        <td><?= h($m['Result']) ?></td>
-                        <td class="mono"><?= h((string)($m['MyWarnings'] ?? 0)) ?> / <?= h((string)($m['OppWarnings'] ?? 0)) ?></td>
-                        <td><?= h((string)($m['Doubles'] ?? 0)) ?></td>
-                        <td>
-                            <?php
-                                $officials = array_filter([
-                                    $m['JudgeName']   ? ('Ref: '     . $m['JudgeName'])  : null,
-                                    $m['Ref1Name']    ? ('Judge1: '  . $m['Ref1Name'])   : null,
-                                    $m['Ref2Name']    ? ('Judge2: '  . $m['Ref2Name'])   : null,
-                                    $m['TableName']   ? ('Table: '   . $m['TableName'])  : null,
-                                ]);
-                                echo $officials ? h(implode('; ', $officials)) : '—';
-                            ?>
-                        </td>
-                        <td class="mono"><?= h((string)$m['MatchID']) ?></td>
+                        <th class="mono">Date</th>
+                        <th>Tournament</th>
+                        <th>Role</th>
+                        <th>Opponent</th>
+                        <th class="mono">Score</th>
+                        <th>Result</th>
+                        <th class="mono">Warnings</th>
+                        <th>Doubles</th>
+                        <th>Officials</th>
+                        <th class="mono">Match&nbsp;ID</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <?php endif; ?>
+                </thead>
+                <tbody>
+                    <?php foreach ($matches as $m): ?>
+                        <tr>
+                            <td class="mono"><?= h($m['FightDate'] ?? '') ?></td>
+                            <td><?= h($m['TournamentName'] ?? '') ?></td>
+                            <td><?= h($m['MyRole']) ?></td>
+                            <td>
+                                <a href="fencer_details.php?fencer_id=<?= h((string)$m['OpponentID']) ?>&tournament_id=<?= $tournamentId !== null ? h((string)$tournamentId) : '' ?>&season_id=<?= h((string)$seasonId) ?>">
+                                    <?= h($m['OpponentName']) ?>
+                                </a>
+                            </td>
+                            <td class="mono"><?= h((string)$m['MyScore']) ?>–<?= h((string)$m['OppScore']) ?></td>
+                            <td><?= h($m['Result']) ?></td>
+                            <td class="mono"><?= h((string)($m['MyWarnings'] ?? 0)) ?> / <?= h((string)($m['OppWarnings'] ?? 0)) ?></td>
+                            <td><?= h((string)($m['Doubles'] ?? 0)) ?></td>
+                            <td>
+                                <?php
+                                    $officials = array_filter([
+                                        $m['JudgeName']   ? ('Ref: '     . $m['JudgeName'])  : null,
+                                        $m['Ref1Name']    ? ('Judge1: '  . $m['Ref1Name'])   : null,
+                                        $m['Ref2Name']    ? ('Judge2: '  . $m['Ref2Name'])   : null,
+                                        $m['TableName']   ? ('Table: '   . $m['TableName'])  : null,
+                                    ]);
+                                    echo $officials ? h(implode('; ', $officials)) : '—';
+                                ?>
+                            </td>
+                            <td class="mono"><?= h((string)$m['MatchID']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <?php endif; ?>
+        </div>
 
         <?php if ($backLink): ?>
         <p style="margin-top:20px;">
@@ -520,6 +523,17 @@ function h(?string $s): string {
         }, array_keys($rankHistory), $rankHistory)), JSON_UNESCAPED_SLASHES);
         ?>;
 
+        // pick aspect ratio by breakpoint
+        const mqTi = window.matchMedia('(max-width: 320px)');
+        const mqSm = window.matchMedia('(max-width: 480px)');
+        const mqMd = window.matchMedia('(max-width: 768px)');
+        function getAR() {
+            if (mqTi.matches) return 0.7;   // small phones: nearly square
+            if (mqSm.matches) return 1.1;   // small phones: nearly square
+            if (mqMd.matches) return 1.4;   // tablets/large phones
+            return 2.0;                     // desktop wide
+        }
+
         // Pull CSS variable for text color
         //const textColor = getComputedStyle(document.body).getPropertyValue('--text-color').trim() || '#000';
         const theme = document.documentElement.getAttribute('data-theme')
@@ -533,6 +547,8 @@ function h(?string $s): string {
           data: { datasets },
           options: {
             responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: getAR(),
             interaction: { mode: 'nearest', axis: 'x', intersect: false },
             plugins: {
               legend: {

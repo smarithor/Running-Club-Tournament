@@ -339,44 +339,47 @@ function h(?string $s): string {
         <canvas id="rankChart" class="chart-canvas"></canvas>
 
         <h2>Match Results</h2>
-        <?php if ($matches): ?>
-        <table>
-        <thead>
-        <tr>
-            <th>Date</th>
-            <th>Challenger</th>
-            <th>Score</th>
-            <th>Score</th>
-            <th>Challenged</th>
-            <th>Warnings (C / D)</th>
-            <th>Doubles</th>
-            <th>Big stick</th>
-            <th>Little stick 1</th>
-            <th>Little stick 2</th>
-            <th>Table</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($matches as $m): ?>
-        <tr>
-            <td><?= h($m['FightDate']) ?></td>
-            <td><?= h($m['ChallengerName']) ?></td>
-            <td class="mono"><?= h((string)$m['ChallengerScore']) ?></td>
-            <td class="mono"><?= h((string)$m['ChallangedScore']) ?></td>
-            <td><?= h($m['ChallengedName']) ?></td>
-            <td class="mono"><?= h((string)$m['ChallengerWarnings']) ?> / <?= h((string)$m['ChallengedWarnings']) ?></td>
-            <td class="mono"><?= h((string)$m['Doubles']) ?></td>
-            <td><?= h($m['JudgeName']) ?></td>
-            <td><?= h($m['Ref1Name']) ?></td>
-            <td><?= h($m['Ref2Name']) ?></td>
-            <td><?= h($m['TableName']) ?></td>
-        </tr>
-        <?php endforeach; ?>
-        </tbody>
-        </table>
-        <?php else: ?>
-        <p>No matches recorded for this tournament yet.</p>
-        <?php endif; ?>
+        
+        <div class="table-wrapper">
+            <?php if ($matches): ?>
+            <table>
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Challenger</th>
+                <th>Score</th>
+                <th>Score</th>
+                <th>Challenged</th>
+                <th>Warnings (C / D)</th>
+                <th>Doubles</th>
+                <th>Big stick</th>
+                <th>Little stick 1</th>
+                <th>Little stick 2</th>
+                <th>Table</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($matches as $m): ?>
+            <tr>
+                <td><?= h($m['FightDate']) ?></td>
+                <td><?= h($m['ChallengerName']) ?></td>
+                <td class="mono"><?= h((string)$m['ChallengerScore']) ?></td>
+                <td class="mono"><?= h((string)$m['ChallangedScore']) ?></td>
+                <td><?= h($m['ChallengedName']) ?></td>
+                <td class="mono"><?= h((string)$m['ChallengerWarnings']) ?> / <?= h((string)$m['ChallengedWarnings']) ?></td>
+                <td class="mono"><?= h((string)$m['Doubles']) ?></td>
+                <td><?= h($m['JudgeName']) ?></td>
+                <td><?= h($m['Ref1Name']) ?></td>
+                <td><?= h($m['Ref2Name']) ?></td>
+                <td><?= h($m['TableName']) ?></td>
+            </tr>
+            <?php endforeach; ?>
+            </tbody>
+            </table>
+            <?php else: ?>
+            <p>No matches recorded for this tournament yet.</p>
+            <?php endif; ?>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
@@ -398,6 +401,18 @@ function h(?string $s): string {
         }, $rankHistory)), JSON_UNESCAPED_SLASHES);
         ?>;
 
+        
+        // pick aspect ratio by breakpoint
+        const mqTi = window.matchMedia('(max-width: 320px)');
+        const mqSm = window.matchMedia('(max-width: 480px)');
+        const mqMd = window.matchMedia('(max-width: 768px)');
+        function getAR() {
+            if (mqTi.matches) return 0.7;   // small phones: nearly square
+            if (mqSm.matches) return 1.1;   // small phones: nearly square
+            if (mqMd.matches) return 1.4;   // tablets/large phones
+            return 2.0;                     // desktop wide
+        }
+
         // Pull CSS variable for text color
         //const textColor = getComputedStyle(document.body).getPropertyValue('--text-color').trim() || '#000';
         const theme = document.documentElement.getAttribute('data-theme')
@@ -411,6 +426,8 @@ function h(?string $s): string {
           data: { datasets },
           options: {
             responsive: true,
+            maintainAspectRatio: true,
+            aspectRatio: getAR(),
             interaction: { mode: 'nearest', axis: 'x', intersect: false },
             plugins: {
               legend: {
