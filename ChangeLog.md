@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 This file tracks changes made to the project files since the baseline upload.
 
+## ToDo
+- In SQL. Add default comments to udpRegisterMatchResults when posting to RankChangeLog. Something like "Promoted to X victory over y" and "Demoted to X victory over y, fencer was between them".
+- In SQL and PHP. Fix Judge vs Referee being switched.
+
+
 ## [1.2.2] - (uploaded 2025-09-24)
 ## Fixed
 - tournament_overview.php
