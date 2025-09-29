@@ -10,6 +10,7 @@ This file tracks changes made to the project files since the baseline upload.
 ## ToDo
 - In SQL. Add default comments to udpRegisterMatchResults when posting to RankChangeLog. Something like "Promoted to X victory over y" and "Demoted to X victory over y, fencer was between them".
 - In SQL and PHP. Fix Judge vs Referee being switched.
+- In PHP. tournament_overview.php filter out everyone that has not staffed in the staff table.
 
 
 ## [1.2.2] - (uploaded 2025-09-24)
