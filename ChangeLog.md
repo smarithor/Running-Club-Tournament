@@ -13,6 +13,13 @@ This file tracks changes made to the project files since the baseline upload.
 - In PHP. tournament_overview.php filter out everyone that has not staffed in the staff table.
 
 
+## [1.2.3] - (uploaded 2025-10-04)
+## Fixed
+- tournament_overview.php
+  - Chart point issues when more than one action happened in a day.
+- fencer_details.php
+  - Chart point issues when more than one action happened in a day.
+
 ## [1.2.2] - (uploaded 2025-09-24)
 ## Fixed
 - tournament_overview.php

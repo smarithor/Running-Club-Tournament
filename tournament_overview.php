@@ -108,7 +108,7 @@ try {
              , st.TournamentName
           FROM (
                 -- Creating last day of old rank
-                SELECT r.FencerID
+				SELECT r.FencerID
                      , f.Color
                      , f.Name
                      , MAX(r.OldRank) AS NewRank
@@ -117,6 +117,19 @@ try {
                      , t.Name AS TournamentName
                      , t.ID
                   FROM RankChangeLog r
+                  JOIN (
+                        SELECT TournamentID
+                             , FencerID
+                             , DATE(ChangeDateTime) AS ChangeDate
+                             , MIN(ChangeDateTime) AS ChangeDateTime
+                        FROM `RankChangeLog`
+                    GROUP BY TournamentID
+                            , FencerID
+                            , DATE(ChangeDateTime)
+                       ) FI
+                    ON FI.TournamentID = r.TournamentID
+                   AND FI.FencerID = r.FencerID
+                   AND FI.ChangeDateTime = r.ChangeDateTime
                   JOIN Tournament t
                     ON t.ID = r.TournamentID
                   JOIN Fencer f
@@ -142,6 +155,19 @@ try {
                      , t.Name AS TournamentName
                      , t.ID
                   FROM RankChangeLog r
+                  JOIN (
+                        SELECT TournamentID
+                             , FencerID
+                             , DATE(ChangeDateTime) AS ChangeDate
+                             , MAX(ChangeDateTime) AS ChangeDateTime
+                        FROM `RankChangeLog`
+                    GROUP BY TournamentID
+                            , FencerID
+                            , DATE(ChangeDateTime)
+                       ) FI
+                    ON FI.TournamentID = r.TournamentID
+                   AND FI.FencerID = r.FencerID
+                   AND FI.ChangeDateTime = r.ChangeDateTime
                   JOIN Tournament t
                     ON t.ID = r.TournamentID
                   JOIN Fencer f

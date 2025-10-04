@@ -214,6 +214,19 @@ try {
                          , t.Name AS TournamentName
                          , t.ID
                       FROM RankChangeLog r
+                    JOIN (
+                            SELECT TournamentID
+                                , FencerID
+                                , DATE(ChangeDateTime) AS ChangeDate
+                                , MIN(ChangeDateTime) AS ChangeDateTime
+                            FROM `RankChangeLog`
+                        GROUP BY TournamentID
+                                , FencerID
+                                , DATE(ChangeDateTime)
+                        ) FI
+                        ON FI.TournamentID = r.TournamentID
+                    AND FI.FencerID = r.FencerID
+                    AND FI.ChangeDateTime = r.ChangeDateTime
                       JOIN Tournament t
                         ON t.ID = r.TournamentID
                      WHERE r.TournamentID = :tid
@@ -231,6 +244,19 @@ try {
                          , t.Name AS TournamentName
                          , t.ID
                       FROM RankChangeLog r
+                  JOIN (
+                        SELECT TournamentID
+                             , FencerID
+                             , DATE(ChangeDateTime) AS ChangeDate
+                             , MAX(ChangeDateTime) AS ChangeDateTime
+                        FROM `RankChangeLog`
+                    GROUP BY TournamentID
+                            , FencerID
+                            , DATE(ChangeDateTime)
+                       ) FI
+                    ON FI.TournamentID = r.TournamentID
+                   AND FI.FencerID = r.FencerID
+                   AND FI.ChangeDateTime = r.ChangeDateTime
                       JOIN Tournament t
                         ON t.ID = r.TournamentID
                      WHERE r.TournamentID = :tid
@@ -333,6 +359,19 @@ try {
                          , t.Name AS TournamentName
                          , t.ID
                           FROM RankChangeLog r
+                    JOIN (
+                            SELECT TournamentID
+                                , FencerID
+                                , DATE(ChangeDateTime) AS ChangeDate
+                                , MIN(ChangeDateTime) AS ChangeDateTime
+                            FROM `RankChangeLog`
+                        GROUP BY TournamentID
+                                , FencerID
+                                , DATE(ChangeDateTime)
+                        ) FI
+                        ON FI.TournamentID = r.TournamentID
+                    AND FI.FencerID = r.FencerID
+                    AND FI.ChangeDateTime = r.ChangeDateTime
                       JOIN Tournament t
                         ON t.ID = r.TournamentID
                      WHERE t.SeasonID = :sid
@@ -351,6 +390,19 @@ try {
                          , t.Name AS TournamentName
                          , t.ID
                       FROM RankChangeLog r
+                  JOIN (
+                        SELECT TournamentID
+                             , FencerID
+                             , DATE(ChangeDateTime) AS ChangeDate
+                             , MAX(ChangeDateTime) AS ChangeDateTime
+                        FROM `RankChangeLog`
+                    GROUP BY TournamentID
+                            , FencerID
+                            , DATE(ChangeDateTime)
+                       ) FI
+                    ON FI.TournamentID = r.TournamentID
+                   AND FI.FencerID = r.FencerID
+                   AND FI.ChangeDateTime = r.ChangeDateTime
                       JOIN Tournament t
                         ON t.ID = r.TournamentID
                      WHERE t.SeasonID = :sid
